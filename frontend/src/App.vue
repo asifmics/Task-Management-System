@@ -1,6 +1,18 @@
 <script setup>
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import {faDashboard, faPlus, faShare} from "@fortawesome/free-solid-svg-icons";
+import Modal from "./components/Modal.vue";
+import {ref} from "vue";
+
+const boardShow = ref(false);
+
+const showBoardModal = () => {
+    boardShow.value = true;
+}
+
+const closeBoardModal = () => {
+    boardShow.value = false;
+}
 </script>
 
 <template>
@@ -205,7 +217,7 @@ import {faDashboard, faPlus, faShare} from "@fortawesome/free-solid-svg-icons";
                         <p class="self-center text-[#25272B] text-[16px] font-medium">Share
                             <font-awesome-icon :icon="faShare"/>
                         </p>
-                        <a href="#" class="self-center bg-[#BE1E2D] px-3 py-1 text-[14px] text-white rounded-md">New
+                        <a href="#" @click="showBoardModal" class="self-center bg-[#BE1E2D] px-3 py-1 text-[14px] text-white rounded-md">New
                             Board</a>
                     </div>
 
@@ -547,6 +559,20 @@ import {faDashboard, faPlus, faShare} from "@fortawesome/free-solid-svg-icons";
             </div>
         </div>
     </div>
+    <Modal :show="boardShow" max-width="sm">
+        <div class="min-w-10 p-4">
+            <form>
+                <div class="flex flex-col">
+                    <label class="text-[17px] pb-1">Board Name</label>
+                    <input placeholder="Enter board name..." class="text-[#939DA7] text-[16px] font-light border border-gray-200 p-2 bg-[#E0E4E8] rounded-md"/>
+                </div>
+                <div class="flex flex-row justify-center gap-6">
+                    <button type="button" @click="closeBoardModal" class="px-3 py-1 rounded-lg bg-[#E5E7EB] hover:bg-[#BE1E2D] hover:text-white text-[#6B7280] font-normal text-[16px] mt-3">Cancel</button>
+                    <button class="px-3 py-1 rounded-lg bg-[#BE1E2D] text-white font-normal text-[16px] mt-3">Create</button>
+                </div>
+            </form>
+        </div>
+    </Modal>
 </template>
 
 <style scoped>
